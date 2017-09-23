@@ -1,0 +1,20 @@
+{
+    "name": "krossroad/laravel-union-paginator",
+    "description": "Package to support pagination in union queries in  Laravel Eloquent.",
+    "type": "library",
+    "require": {
+        "illuminate/database": "^5.5",
+        "illuminate/pagination": "^5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Krossroad\\UnionPaginator\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Rikesh",
+            "email": "rikesh.shrestha.npl@gmail.com"
+        }
+    ]
+}
