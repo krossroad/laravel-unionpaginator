@@ -1,6 +1,6 @@
 ## Installation
 ```
-composer require krossroad/laravel-union-paginator
+composer require 'krossroad/laravel-union-paginator:5.4'
 ```
 
 ## Usage
