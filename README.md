@@ -2,7 +2,7 @@
 ```
 composer require 'krossroad/laravel-union-paginator:5.5'
 ```
-For Laravel v5.4 use `'krossroad/laravel-union-paginator:5.5'`.
+For Laravel v5.4 use `'krossroad/laravel-union-paginator:5.4'`.
 
 ## Usage
 
