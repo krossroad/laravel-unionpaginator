@@ -16,5 +16,6 @@
             "name": "Rikesh",
             "email": "rikesh.shrestha.npl@gmail.com"
         }
-    ]
+    ],
+    "minimum-stability": "dev"
 }
