@@ -3,8 +3,8 @@
     "description": "Package to support pagination in union queries in  Laravel Eloquent.",
     "type": "library",
     "require": {
-        "illuminate/database": "^5.5",
-        "illuminate/pagination": "^5.5"
+        "illuminate/database": "5.4",
+        "illuminate/pagination": "5.4"
     },
     "autoload": {
         "psr-4": {

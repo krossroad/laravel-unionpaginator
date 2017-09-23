@@ -25,11 +25,13 @@ class UnionAwareBuilder extends Builder
 
         $perPage = $perPage ?: $this->model->getPerPage();
 
-        $results = ($total = $this->getCountForUnionPagination($this->toBase()))
-                                    ? $this->forPage($page, $perPage)->get($columns)
-                                    : $this->model->newCollection();
+        $query = $this->toBase();
 
-        return $this->paginator($results, $total, $perPage, $page, [
+        $total = $this->getCountForUnionPagination($query);
+
+        $results = $total ? $this->forPage($page, $perPage)->get($columns) : new Collection;
+
+        return new LengthAwarePaginator($results, $total, $perPage, $page, [
             'path' => Paginator::resolveCurrentPath(),
             'pageName' => $pageName,
         ]);
