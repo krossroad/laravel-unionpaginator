@@ -4,6 +4,7 @@ namespace Krossroad\UnionPaginator;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 
 class UnionAwareBuilder extends Builder
