@@ -3,6 +3,7 @@
 namespace Krossroad\UnionPaginator;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
@@ -45,7 +46,7 @@ class UnionAwareBuilder extends Builder
     private function getCountForUnionPagination($query)
     {
         $conn = $this->getConnection();
-        $qb   = new QueryBuilder($conn, $conn->getQueryGrammar(), $conn->getPostProcessor());
+        $qb = new QueryBuilder($conn, $conn->getQueryGrammar(), $conn->getPostProcessor());
 
         $tableSql = sprintf('(%s) as table_count', $query->toSql());
         $tableSql = $conn->raw($tableSql);
