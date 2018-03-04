@@ -1,6 +1,3 @@
-
-[![Package Control](https://img.shields.io/packagecontrol/dt/GitGutter.svg?style=social)](https://packagist.org/packages/krossroad/laravel-union-paginator)
-
 ## Installation
 ```
 composer require 'krossroad/laravel-union-paginator:5.5'
