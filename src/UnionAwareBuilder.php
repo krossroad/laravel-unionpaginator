@@ -26,13 +26,19 @@ class UnionAwareBuilder extends Builder
         $perPage = $perPage ?: $this->model->getPerPage();
 
         $results = ($total = $this->getCountForUnionPagination($this->toBase()))
-                                    ? $this->forPage($page, $perPage)->get($columns)
-                                    : $this->model->newCollection();
+            ? $this->forPage($page, $perPage)->get($columns)
+            : $this->model->newCollection();
 
-        return $this->paginator($results, $total, $perPage, $page, [
-            'path' => Paginator::resolveCurrentPath(),
-            'pageName' => $pageName,
-        ]);
+        return $this->paginator(
+            $results,
+            $total,
+            $perPage,
+            $page,
+            [
+                'path' => Paginator::resolveCurrentPath(),
+                'pageName' => $pageName,
+            ]
+        );
     }
 
     /**
