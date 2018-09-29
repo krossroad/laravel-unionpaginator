@@ -10,7 +10,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Krossroad\\UnionPaginator\\": "src/"
+            "Krossroad\\UnionPaginator\\": "src/",
+            "Tests\\": "tests/"
         }
     },
     "authors": [

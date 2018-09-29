@@ -23,11 +23,11 @@ class UnionAwareBuilder extends Builder
     {
         $page = $page ?: Paginator::resolveCurrentPage($pageName);
 
-        $perPage = $perPage ?: $this->model->getPerPage();
+        $perPage = $perPage ?: $this->getCurrentModel()->getPerPage();
 
         $results = ($total = $this->getCountForUnionPagination($this->toBase()))
             ? $this->forPage($page, $perPage)->get($columns)
-            : $this->model->newCollection();
+            : $this->getCurrentModel()->newCollection();
 
         return $this->paginator(
             $results,
@@ -48,7 +48,12 @@ class UnionAwareBuilder extends Builder
     protected function getCountForUnionPagination($query)
     {
         $conn = $this->getConnection();
-        $qb   = new QueryBuilder($conn, $conn->getQueryGrammar(), $conn->getPostProcessor());
+
+        $qb   = new QueryBuilder(
+            $conn,
+            $conn->getQueryGrammar(),
+            $conn->getPostProcessor()
+        );
 
         $tableSql = sprintf('(%s) as table_count', $query->toSql());
         $tableSql = $conn->raw($tableSql);
