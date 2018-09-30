@@ -19,5 +19,5 @@
             "email": "rikesh.shrestha.npl@gmail.com"
         }
     ],
-    "minimum-stability": "dev"
+    "minimum-stability": "stable"
 }
