@@ -43,7 +43,7 @@ class UnionAwareBuilder extends Builder
      * @param  QueryBuilder $query
      * @return int
      */
-    private function getCountForUnionPagination($query)
+    protected function getCountForUnionPagination($query)
     {
         $conn = $this->getConnection();
         $qb = new QueryBuilder($conn, $conn->getQueryGrammar(), $conn->getPostProcessor());
