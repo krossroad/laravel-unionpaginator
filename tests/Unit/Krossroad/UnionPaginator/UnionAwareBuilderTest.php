@@ -5,10 +5,8 @@ use PHPUnit\Framework\TestCase;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Query\Grammars\Grammar;
 use Krossroad\UnionPaginator\UnionAwareBuilder;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Query\Processors\Processor;
 
 /**
  * Class UnionAwareBuilderTest
@@ -27,7 +25,7 @@ class UnionAwareBuilderTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $queryBuilderMock->expects($this->once())->method('toSql');
+        $queryBuilderMock->expects($this->any())->method('toSql');
 
         $currentModelMock = $this->getMockBuilder(Model::class)
             ->setMethods(['getPerPage', 'newCollection'])
@@ -37,10 +35,16 @@ class UnionAwareBuilderTest extends TestCase
             ->method('getPerPage')
             ->willReturn(10);
 
+        $currentModelMock->expects($this->any())
+            ->method('newCollection')
+            ->willReturn(collect([]));
+
         $unionAwareBuilderMock = $this->getMockBuilder(UnionAwareBuilder::class)
             ->setMethods([
                 'getCurrentModel',
-                'getConnection'
+                'getConnection',
+                'getCountForUnionPagination',
+                'getCustomQueryBuilder'
             ])
             ->setConstructorArgs([$queryBuilderMock])
             ->getMock();
@@ -50,33 +54,39 @@ class UnionAwareBuilderTest extends TestCase
             ->method('getCurrentModel')
             ->willReturn($currentModelMock);
 
+        $unionAwareBuilderMock
+            ->expects($this->any())
+            ->method('getCountForUnionPagination')
+            ->willReturn(0);
+
         $connectionMock = $this->getMockBuilder(Connection::class)
             ->disableOriginalConstructor()
             ->setMethods([
-                'getQueryGrammar',
-                'getPostProcessor',
                 'select'
             ])
             ->getMock();
 
-        $queryGrammarMock = $this->getMockBuilder(Grammar::class)
-            ->disableOriginalConstructor()
+        $customerQueryBuilderMock = $this->getMockBuilder(Builder::class)
+            ->setConstructorArgs([
+                $connectionMock,
+                new \Illuminate\Database\Query\Grammars\Grammar,
+                new \Illuminate\Database\Query\Processors\Processor
+            ])
+            ->setMethods(['select'])
             ->getMock();
 
-        $connectionMock->expects($this->once())
-            ->method('getQueryGrammar')
-            ->willReturn($queryGrammarMock);
-
-        $postProcessorMock = $this->getMockBuilder(Processor::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $connectionMock->expects($this->once())
-            ->method('getPostProcessor')
-            ->willReturn($postProcessorMock);
+        $customerQueryBuilderMock->expects($this->any())
+            ->method('select')
+            ->willReturnSelf();
 
         $unionAwareBuilderMock
-            ->expects($this->once())
+            ->expects($this->any())
+            ->method('getCustomQueryBuilder')
+            ->with($connectionMock)
+            ->willReturn($customerQueryBuilderMock);
+
+        $unionAwareBuilderMock
+            ->expects($this->any())
             ->method('getConnection')
             ->willReturn($connectionMock);
 

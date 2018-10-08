@@ -2,6 +2,7 @@
 
 namespace Krossroad\UnionPaginator;
 
+use Illuminate\Database\Connection;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Pagination\Paginator;
@@ -42,27 +43,49 @@ class UnionAwareBuilder extends Builder
     }
 
     /**
+     * Returns the custom query builder
+     *
+     * @param $connection Connection|\Illuminate\Database\ConnectionInterface
+     *
+     * @return \Illuminate\Database\Query\Builder
+     */
+    protected function getCustomQueryBuilder($connection)
+    {
+        return new QueryBuilder(
+            $connection,
+            $connection->getQueryGrammar(),
+            $connection->getPostProcessor()
+        );
+    }
+
+    /**
      * @param  QueryBuilder $query
      * @return int
      */
     protected function getCountForUnionPagination($query)
     {
         $conn = $this->getConnection();
-
-        $qb = new QueryBuilder(
-            $conn,
-            $conn->getQueryGrammar(),
-            $conn->getPostProcessor()
-        );
+        $queryBuilder = $this->getCustomQueryBuilder($conn);
 
         $tableSql = sprintf('(%s) as table_count', $query->toSql());
         $tableSql = $conn->raw($tableSql);
 
-        $result = $qb->select([$conn->raw('count(1) as row_count')])
+        $result = $queryBuilder
+            ->select([$conn->raw('count(1) as row_count')])
             ->from($tableSql)
             ->mergeBindings($query)
             ->first();
 
         return $result->row_count;
+    }
+
+    /**
+     * Returns the current Model
+     *
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function getCurrentModel()
+    {
+        return $this->model;
     }
 }
