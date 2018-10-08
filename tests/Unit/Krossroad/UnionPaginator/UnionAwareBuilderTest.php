@@ -1,7 +1,7 @@
 <?php
 namespace Tests\Unit\Krossroad\UnionPaginator\UnionAwareBuilderTest;
 
-use Tests\Unit\TestCase;
+use PHPUnit\Framework\TestCase;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Model;

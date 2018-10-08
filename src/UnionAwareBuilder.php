@@ -49,7 +49,7 @@ class UnionAwareBuilder extends Builder
     {
         $conn = $this->getConnection();
 
-        $qb   = new QueryBuilder(
+        $qb = new QueryBuilder(
             $conn,
             $conn->getQueryGrammar(),
             $conn->getPostProcessor()

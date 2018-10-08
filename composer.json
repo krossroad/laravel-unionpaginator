@@ -1,12 +1,22 @@
 {
     "name": "krossroad/laravel-union-paginator",
-    "description": "Package to support pagination in union queries in  Laravel Eloquent.",
+    "description": "Package to support pagination in union queries in Laravel Eloquent.",
     "type": "library",
-    "keywords": ["laravel", "laravel-5", "laravel pagination", "laravel-union-paginator"],
+    "keywords": [
+        "laravel",
+        "laravel-5",
+        "laravel pagination",
+        "laravel-union-paginator",
+        "eloquent"
+    ],
     "license": "MIT",
+    "homepage": "https://github.com/krossroad/laravel-unionpaginator",
     "require": {
         "illuminate/database": "^5.5",
         "illuminate/pagination": "^5.5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.4"
     },
     "autoload": {
         "psr-4": {
