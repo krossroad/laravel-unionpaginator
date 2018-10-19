@@ -2,6 +2,7 @@
 
 ### Installation
 
+For Laravel v5.5 to v5.7
 ```
 composer require 'krossroad/laravel-union-paginator:5.5'
 ```
