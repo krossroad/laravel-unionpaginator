@@ -1,5 +1,7 @@
 ## Laravel Union Paginator
 
+[![Latest Stable Version](https://poser.pugx.org/krossroad/laravel-union-paginator/v/stable)](https://packagist.org/packages/krossroad/laravel-union-paginator) [![Total Downloads](https://poser.pugx.org/krossroad/laravel-union-paginator/downloads)](https://packagist.org/packages/krossroad/laravel-union-paginator) [![License](https://poser.pugx.org/krossroad/laravel-union-paginator/license)](https://packagist.org/packages/krossroad/laravel-union-paginator)
+
 ### Installation
 
 For Laravel v5.5 to v5.7
