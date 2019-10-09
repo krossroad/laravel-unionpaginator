@@ -1,3 +1,6 @@
+## Note
+Laravel support the union pagination from v5.7
+
 ## Installation
 ```
 composer require 'krossroad/laravel-union-paginator:5.5'
